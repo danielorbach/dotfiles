@@ -1,0 +1,29 @@
+#!/bin/zsh
+#
+# This init script installs the latest Homebrew on a macos machine.
+#
+# This script is safe to execute multiple times on the same machine (idempotent).
+#
+# Terminology: <https://docs.brew.sh/Formula-Cookbook#homebrew-terminology>
+
+setopt errexit nounset pipefail  # Enable strict mode for better error handling
+
+
+# Install Homebrew if not already installed.
+if command -v brew &> /dev/null; then
+    echo "Homebrew already installed."
+    exit 0
+else
+    echo "Installing Homebrew..."
+fi
+
+# The following command is recommended by <https://brew.sh> to install brew.
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# The command above only modifies files under /opt/homebrew (on Apple Silicon).
+# For this reason, the installation does not automatically modify the PATH
+# variable. For this reason, the installation script instructs the user to
+# manually configure the current shell (Zsh in this case) approritately.
+#
+# Don't worry because 90-symlink-dotfiles should populate zsh init scripts such
+# that new shells evaluate Homebrew's environment appropriately.

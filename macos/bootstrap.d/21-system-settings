@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+# TODO:
+#   1. Automatically match input language to the app/file (I saw it once on macos)
+#   2. Find a way to list all chagnes I made to the settings manually

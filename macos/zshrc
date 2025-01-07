@@ -1,0 +1,39 @@
+# Zsh Interactive Configuration File (~/.zshrc)
+#
+# This file is sourced by Zsh for every interactive shells. Its purpose is to
+# define configurations, aliases, functions, and settings that enhance your
+# interactive shell experience.
+#
+# Usage:
+# - Use this file for interactive shell-specific settings.
+# - Avoid placing environment variables or non-interactive settings here;
+#   use ~/.zshenv for those.
+# - Avoid running slow commands that should run only once per process tree;
+#   use ~/.zprofile for those.
+#
+# Order of Execution:
+# ~/.zshrc is executed only for interactive shells, after:
+#   1. ~/.zshenv (universal environment settings)
+#   2. ~/.zprofile have already run once during the initial login
+# It is skipped in non-interactive contexts (e.g., shell scripts).
+#
+# Note:
+# This file affects your interactive workflow. Keep it organized and modular
+# to ensure a clean, maintainable setup.
+#
+# -----------------------------------------------------------------------------
+
+
+# Use modern completion system
+autoload -Uz compinit
+compinit
+
+
+# Aliases imported from Ubuntu
+alias ls='ls -F --color=auto'
+alias ll='ls -alh --color=auto'
+alias la='ls -F -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'

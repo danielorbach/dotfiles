@@ -1,0 +1,32 @@
+# Zsh Login Configuration File (~/.zprofile)
+#
+# This file is sourced by Zsh for login shells, which are initiated during the
+# start of a new session (e.g. logging in via a terminal, SSH, or on macOS when
+# opening the terminal for the first time). Its purpose is to define settings
+# and commands that should be run once per login session.
+#
+# Usage:
+# - Use this file for environment variables, session-wide initialization, or
+#   commands that should run once per session (i.e. process tree).
+# - Avoid placing interactive or per-shell configurations here; use ~/.zshrc
+#   for those.
+# - Avoid placing settings needed by non-interactive shells; use ~/.zshenv
+#   instead.
+#
+# Order of Execution:
+# ~/.zprofile is executed for login shells, after:
+#   1. ~/.zshenv (universal environment settings)
+# and before:
+#   2. ~/.zshrc (interactive shell-specific settings)
+#
+# Note:
+# Keep this file focused on session-wide tasks, such as:
+# - Setting up persistent environment variables (e.g., PATH, LANG).
+# - Initializing SSH agents or other services needed for the session.
+# - Running commands that must execute only once.
+#
+# -----------------------------------------------------------------------------
+
+
+# Configure Homebrew environment variables for the current shell session.
+eval "$(/opt/homebrew/bin/brew shellenv)"

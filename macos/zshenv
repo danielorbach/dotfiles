@@ -1,0 +1,26 @@
+# Zsh Environment Configuration File (~/.zshenv)
+#
+# This file is sourced by every Zsh session, be it interactive, non-interactive
+# login, and non-login. Its purpose is to define environment variables and
+# perform minimal, universal setup applicable to all shells.
+#
+# Usage:
+# - Reserve this file for essential environment settings only.
+# - Avoid commands, aliases, or configurations meant for interactive use.
+#
+# Order of Execution:
+# ~/.zshenv is executed before:
+#   1. ~/.zprofile (login shells)
+#   2. ~/.zshrc (interactive shells)
+#   3. ~/.zlogout (on shell exit)
+#
+# Best Practices:
+# - Keep this file minimal to avoid unnecessary overhead for non-interactive shells.
+# - Avoid defining aliases, functions, or interactive shell configurations here.
+# - Focus on exporting essential environment variables (e.g., PATH, LANG, EDITOR).
+#
+# Note:
+# Improper changes here may disrupt both scripts and interactive sessions.
+# Test thoroughly.
+#
+# -----------------------------------------------------------------------------

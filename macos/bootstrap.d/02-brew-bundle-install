@@ -1,0 +1,16 @@
+#!/bin/zsh
+#
+# This init script installs and upgrade all dependencies from the Brewfile.
+#
+# This script is safe to execute multiple times on the same machine (idempotent).
+
+setopt errexit nounset pipefail  # Enable strict mode for better error handling
+
+
+# The script may execute in arbitrary working directories. So, we must find out
+# the absolute path to this script, and find the Brewfile relative to it.
+BOOTSTRAPD_DIR="$(dirname "$(realpath "$0")")"  # The macos/bootstrap.d/ folder.
+MACOS_DIR="$(dirname "$BOOTSTRAPD_DIR")"  # The macos/ folder.
+BREWFILE="$MACOS_DIR"/Brewfile
+
+brew bundle install --file="$BREWFILE"
