@@ -9,8 +9,12 @@
 setopt errexit nounset pipefail  # Enable strict mode for better error handling
 
 
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
 # Install Homebrew if not already installed.
-if command -v brew &> /dev/null; then
+if command_exists brew ; then
     echo "Homebrew already installed."
     exit 0
 else

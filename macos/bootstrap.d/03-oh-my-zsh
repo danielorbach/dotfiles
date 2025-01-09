@@ -1,0 +1,84 @@
+#!/bin/zsh
+#
+# Installs oh-my-zsh for an enhanced shell experience. 
+#
+# Configuration is managed in ~/.zshrc, which is symlinked
+# to the zshrc file found in the macos folder of this repository.
+
+setopt errexit nounset pipefail  # Enable strict mode for better error handling
+
+
+# Print message in yellow.
+warn() {
+  echo -e "\\033[1;33m[WARN]\\033[0m  $*"
+}
+
+
+# Check if oh-my-zsh is already installed.
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    echo "oh-my-zsh already installed."
+    # exit 0
+fi
+
+# Oh-My-Zsh creates to ~/.zshrc, if it does not exist.
+#
+# The dotfiles repository contains a zshrc file that is symlinked to ~/.zshrc,
+# at a later stage in the bootstrap process, so we shall delete the file here.
+#
+# If the ~/.zshrc file already exists, then oh-my-zsh will not overwrite it,
+# and we shall not delete it either.
+if ! [[ -f "$HOME/.zshrc" || -h "$HOME/.zshrc" ]]; then
+    warn "️🗑️  No existing ~/.zshrc file found. Oh-My-Zsh will create one and we shall delete it."
+    DELETE_ZSHRC=yes
+fi
+
+# Install oh-my-zsh.
+#   --unattended: sets both CHSH and RUNZSH to 'no'
+#   --keep-zshrc: sets KEEP_ZSHRC to 'yes'
+# I don't know why the empty "" is needed, but it is. It even says so in the
+# help for install.sh script. Otherwise the first flag is ignored.
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+
+# Delete the ~/.zshrc file if it was created by oh-my-zsh (if it did not exist before).
+if [ "${DELETE_ZSHRC:-}" = "yes" ]; then
+    warn "🗑️  Deleting ~/.zshrc file created by oh-my-zsh."
+    rm "$HOME/.zshrc"
+fi
+
+
+# General Information
+#
+# Oh My Zsh sets a lot of shell aliases, and this cannot be disabled
+# (irrespective of plugins). See 'ib/directories.zsh' for most of the aliases.
+#
+# For example, here is a sample output (using 'robbyrussell' theme) of the
+# ls command and its aliases:
+#
+#   ➜  dotfiles git:(macos/scratchpad) ✗ ls
+#   README.md      macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ ll
+#   total 8
+#   -rw-r--r--  1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x  8 danielorbach  staff   256B Jan  7 22:57 macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ la
+#   total 8
+#   drwxr-xr-x  13 danielorbach  staff   416B Jan  7 22:58 .git
+#   drwxr-xr-x   3 danielorbach  staff    96B Jan  9 18:51 .github
+#   -rw-r--r--   1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x   8 danielorbach  staff   256B Jan  7 22:57 macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ l
+#   total 8
+#   drwxr-xr-x   7 danielorbach  staff   224B Jan  9 18:52 .
+#   drwxr-x---+ 33 danielorbach  staff   1.0K Jan  9 20:28 ..
+#   drwxr-xr-x  13 danielorbach  staff   416B Jan  7 22:58 .git
+#   drwxr-xr-x   3 danielorbach  staff    96B Jan  9 18:51 .github
+#   -rw-r--r--   1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x   8 danielorbach  staff   256B Jan  7 22:57 macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ lsa
+#   total 8
+#   drwxr-xr-x   7 danielorbach  staff   224B Jan  9 18:52 .
+#   drwxr-x---+ 33 danielorbach  staff   1.0K Jan  9 20:28 ..
+#   drwxr-xr-x  13 danielorbach  staff   416B Jan  7 22:58 .git
+#   drwxr-xr-x   3 danielorbach  staff    96B Jan  9 18:51 .github
+#   -rw-r--r--   1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x   8 danielorbach  staff   256B Jan  7 22:57 macos

@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+# TODO: if interactive shell, open 'gh auth login' and let the user interact with the CLI
+
+# TODO: configure SSH code signing with 1Password
