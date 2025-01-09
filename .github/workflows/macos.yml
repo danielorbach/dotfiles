@@ -1,0 +1,21 @@
+name: Bootstrap macOS
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    # The latest macOS is running on Apple Silicon.
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup environment
+      run: |
+        echo "Setting up environment"
+        # Add your setup steps here
+    
+    - name: Run bootstrap
+      run: ./macos/bootstrap
