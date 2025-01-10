@@ -1,0 +1,56 @@
+# Dotfiles Installation (macOS)
+#
+# This workflow automates the installation and setup of dotfiles on macOS environments.
+# It handles the complete process from cleaning up existing software to verifying the
+# installation and running tests.
+#
+# Currently, this workflow is designed to run on Apple Silicon only. As new operating
+# systems are released, the matrix strategy can be updated manually to include additional
+# versions.
+#
+# The workflow can be triggered by pushing changes to main, creating pull requests, or
+# manually through workflow dispatch.
+name: macos dotfiles
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dotfiles-ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: 
+          - macos-15  # The latest macOS is running on Apple Silicon.
+
+    steps:
+      - name: Clean up pre-installed software
+        run: |
+          brew uninstall --cask --force $(brew list --cask)
+          brew uninstall --formula --ignore-dependencies --force $(brew list --formula)
+          # brew uninstall --cask --force firefox google-chrome
+          brew cleanup --prune-prefix
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+
+      - uses: actions/checkout@v4
+
+      - name: Install Homebrew
+        run: ./macos/install-homebrew
+
+      - name: Homebrew next steps
+        run: |
+          # ==> Next steps:
+          # - Run these commands in your terminal to add Homebrew to your PATH:
+          #     echo >> /Users/runner/.bash_profile
+          #     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/runner/.bash_profile
+          #     eval "$(/opt/homebrew/bin/brew shellenv)"
+          # - Run brew help to get started
+          echo >> /Users/runner/.bash_profile
+          echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/runner/.bash_profile
+
+      - name: Run tests
+        run: |
+          brew --version
