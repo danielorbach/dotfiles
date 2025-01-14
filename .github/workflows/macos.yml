@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  dotfiles-ci:
+  ci:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
