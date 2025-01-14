@@ -37,6 +37,11 @@ jobs:
         shell: /bin/zsh -l {0}
 
     steps:
+      - name: DEBUG
+        run: |
+          echo "SHELL: $SHELL"
+          echo "LOGIN SHELL: $0"
+
       - name: Clean up pre-installed software
         run: |
           brew uninstall --cask --force $(brew list --cask)
