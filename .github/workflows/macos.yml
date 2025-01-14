@@ -23,8 +23,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: 
-          - macos-15  # The latest macOS is running on Apple Silicon.
+        os:
+          - macos-15  # The latest macOS running on Apple Silicon.
 
     steps:
       - name: Clean up pre-installed software
