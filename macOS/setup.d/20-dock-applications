@@ -1,0 +1,24 @@
+#!/bin/zsh
+#
+# This setup script configures the application shortcuts in the Dock.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Clear all apps from Dock.
+dockutil --no-restart --remove all
+
+# First, add the frequently used Apple apps.
+dockutil --no-restart --add "/System/Applications/Finder.app"
+dockutil --no-restart --add "/System/Applications/Launchpad.app"
+dockutil --no-restart --add "/System/Applications/Safari.app"
+dockutil --no-restart --add "/System/Applications/Calendar.app"
+dockutil --no-restart --add "/System/Applications/Reminders.app"
+dockutil --no-restart --add "/System/Applications/Notes.app"
+dockutil --no-restart --add "/System/Applications/Tips.app"
+dockutil --no-restart --add "/System/Applications/Utilities/Activity Monitor.app"
+dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
+
+# Restart Dock to apply changes.
+killall Dock

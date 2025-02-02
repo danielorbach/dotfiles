@@ -33,6 +33,7 @@ brew "yq"               # Process YAML, JSON, XML, CSV and properties documents 
 # common on other Linux distros, others are specific to macos.
 brew "wget"             # Internet file retriever
 brew "gpg"              # GNU Pretty Good Privacy (PGP) package
+brew "dockutil"         # Tool for managing dock items
 
 # Terminal
 #
