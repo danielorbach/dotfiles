@@ -58,3 +58,15 @@ jobs:
       - name: 👁️ Inspect ~/.zprofile
         run: cat ~/.zprofile
         continue-on-error: true
+
+      - name: Check user-interface
+        run: |
+          mkdir screenshots
+          ./macos/check-ui screenshots
+
+      - name: Upload user-interface screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshots/*
+          if-no-files-found: error

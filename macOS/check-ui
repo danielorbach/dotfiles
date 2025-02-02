@@ -1,0 +1,60 @@
+#!/bin/zsh
+#
+# User Interface Configuration Check Script
+#
+# This script captures the screen at appropriate scenarios to manually check
+# that the macOS machine is ready for use and has been configured according to
+# the user's preferences.
+#
+# Usage:
+#   $(dotfiles)/macOS/check-ui SCREENSHOTS-DIRECTORY
+#
+# Note:
+#   - This script outputs the captured screens to a folder given by the user.
+#   - The given directory must exist and be writable, otherwise the script will
+#     fail early with an error.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# === HELPERS ===
+
+error() {
+  # Print message in red.
+  echo -e "\\033[1;31m[ERROR]\\033[0m $*" >&2
+  exit 1
+}
+
+info() {
+  # Print message in green.
+  echo -e "\\033[1;32m[INFO]\\033[0m  $*"
+}
+
+warn() {
+  # Print message in green.
+  echo -e "\\033[1;33m[WARN]\\033[0m  $*"
+}
+
+
+# === PARSE ARGUMENTS ===
+
+# Captured screenshots will be saved in this directory.
+if [[ $# -ne 1 || -z "$1" ]]; then
+  echo "USAGE: $(basename $0) SCREENSHOTS-DIRECTORY"
+  error "Please provide a directory to save the screenshots."
+fi
+output_dir="$1"
+
+# Create the output directory if it does not exist.
+if [[ ! -d "${output_dir}" ]]; then
+  error "The output directory does not exist: ${output_dir}"
+fi
+info "Captured screenshots will be saved in: ${output_dir}"
+
+
+# === CHECKS ===
+
+# Capture the initial Desktop screen.
+screencapture -x "${output_dir}/desktop.png"
+warn "✅ Check the Dock applications and the Desktop icons."
