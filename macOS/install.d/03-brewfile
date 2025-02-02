@@ -1,0 +1,21 @@
+#!/bin/zsh
+#
+# This init script installs my Brewfile (Homebrew Bundle) on a macos machine.
+#
+# This script is safe to execute multiple times on the same machine (idempotent).
+# If the Brewfile is already installed, the script will upgrade all applications
+# and their dependencies.
+#
+# Terminology: <https://docs.brew.sh/Formula-Cookbook#homebrew-terminology>
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# The script may execute in arbitrary working directories. So, we must find out
+# the absolute path to this script, and find the Brewfile relative to it.
+INSTALLD_DIR="$(dirname "$(realpath "$0")")"  # The macos/install.d/ folder.
+MACOS_DIR="$(dirname "$INSTALLD_DIR")"  # The macos/ folder.
+BREWFILE="$MACOS_DIR"/Brewfile
+
+brew bundle install --file="$BREWFILE"

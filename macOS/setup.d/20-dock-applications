@@ -1,0 +1,27 @@
+#!/bin/zsh
+#
+# This setup script configures the application shortcuts in the Dock.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Clear all apps from Dock.
+dockutil --no-restart --remove all
+
+dockutil --add "/System/Applications/Finder.app" \
+    --add "/System/Applications/Launchpad.app" \
+    --add "/System/Applications/Safari.app" \
+    --add "/System/Applications/Calendar.app" \
+    --add "/System/Applications/Reminders.app" \
+    --add "/System/Applications/Notes.app" \
+    --add "/System/Applications/Tips.app" \
+    --add "/System/Applications/Utilities/Activity Monitor.app" \
+    --add "/System/Applications/Utilities/Terminal.app" \
+    --add "/Applications/Microsoft Edge.app" \
+    --add "/Applications/Notion.app" \
+    --add "/Applications/Slack.app" \
+    --add "/Applications/Microsoft Teams.app" \
+    --add "/Applications/Spotify.app" \
+    --add "/Applications/Visual Studio Code.app" \
+    --add "/Applications/ChatGPT.app"
