@@ -9,25 +9,19 @@ setopt ERREXIT NOUNSET PIPEFAIL
 # Clear all apps from Dock.
 dockutil --no-restart --remove all
 
-# First, add the frequently used Apple apps.
-dockutil --no-restart --add "/System/Applications/Finder.app"
-dockutil --no-restart --add "/System/Applications/Launchpad.app"
-dockutil --no-restart --add "/System/Applications/Safari.app"
-dockutil --no-restart --add "/System/Applications/Calendar.app"
-dockutil --no-restart --add "/System/Applications/Reminders.app"
-dockutil --no-restart --add "/System/Applications/Notes.app"
-dockutil --no-restart --add "/System/Applications/Tips.app"
-dockutil --no-restart --add "/System/Applications/Utilities/Activity Monitor.app"
-dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
-
-# Then, add the frequently used third-party apps.
-dockutil --no-restart --add "/Applications/Microsoft Edge.app"
-dockutil --no-restart --add "/Applications/Notion.app"
-dockutil --no-restart --add "/Applications/Slack.app"
-dockutil --no-restart --add "/Applications/Microsoft Teams.app"
-dockutil --no-restart --add "/Applications/Spotify.app"
-dockutil --no-restart --add "/Applications/Visual Studio Code.app"
-dockutil --no-restart --add "/Applications/ChatGPT.app"
-
-# Restart Dock to apply changes.
-killall Dock
+dockutil --add "/System/Applications/Finder.app" \
+    --add "/System/Applications/Launchpad.app" \
+    --add "/System/Applications/Safari.app" \
+    --add "/System/Applications/Calendar.app" \
+    --add "/System/Applications/Reminders.app" \
+    --add "/System/Applications/Notes.app" \
+    --add "/System/Applications/Tips.app" \
+    --add "/System/Applications/Utilities/Activity Monitor.app" \
+    --add "/System/Applications/Utilities/Terminal.app" \
+    --add "/Applications/Microsoft Edge.app" \
+    --add "/Applications/Notion.app" \
+    --add "/Applications/Slack.app" \
+    --add "/Applications/Microsoft Teams.app" \
+    --add "/Applications/Spotify.app" \
+    --add "/Applications/Visual Studio Code.app" \
+    --add "/Applications/ChatGPT.app"
