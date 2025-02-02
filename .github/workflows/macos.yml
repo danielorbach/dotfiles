@@ -30,16 +30,6 @@ jobs:
         os:
           - macos-15  # The latest macOS running on Apple Silicon.
 
-    defaults:
-      run:
-        # Using zsh as the default shell instead of bash.
-        #
-        # Using -l (login) ensures that the shell starts as a login shell, which is
-        # important for loading the correct environment variables and configurations.
-        #
-        # Spec: <https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#defaultsrunshell>
-        shell: /bin/zsh -l {0}
-
     steps:
       - name: Clean up pre-installed software
         run: |
