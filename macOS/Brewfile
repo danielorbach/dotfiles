@@ -1,0 +1,119 @@
+# Brewfile
+#
+# Automating macOS software installation using Homebrew. Read more at the
+# Homebrew bundle documentation: <https://github.com/Homebrew/homebrew-bundle>.
+#
+# This Brewfile is a declarative list of software tools, GUI applications, and
+# development extensions managed by Homebrew. It allows for automated installation,
+# updates, and cleanup of my macOS environment, making it easy to replicate or
+# share my setup across machines.
+#
+# Usage:
+# - To install all listed items: `brew bundle`
+# - To check for missing items: `brew bundle check`
+# - To clean unused items: `brew bundle cleanup`
+#
+# This file is ideal for provisioning new machines or sharing with teammates.
+
+# Taps (repositories for additional formulae or casks)
+tap "homebrew/core"     # Core formulae repository (tapped by default)
+tap "homebrew/cask"     # Casks repository for GUI apps (tapped by default)
+tap "homebrew/bundle"   # Bundle support for managing Brewfiles (tapped lazily by the 'brew bundle' command)
+
+# Alternative flavours
+#
+# These are preferable versions of default programs bundled with macos.
+brew "git"              # Version control (overrides Command Line Tools)
+brew "jq"               # JSON parsing and formatting (overrides builtin)
+brew "yq"               # Process YAML, JSON, XML, CSV and properties documents from the CLI
+
+# Shell commands and tools
+#
+# There programs are useful for developers in a shell environment. Some are
+# common on other Linux distros, others are specific to macos.
+brew "wget"             # Internet file retriever
+brew "gpg"              # GNU Pretty Good Privacy (PGP) package
+
+# Terminal
+#
+# The "Apple Terminal" bundled with macos is subpar and inferior to other
+# available options.
+# 
+# I'm currently evaluating the following alternatives.
+cask "iterm2"           # Superior version of Apple Terminal
+cask "warp"             # Modern terminal application
+cask "kitty"            # Marom's favourite
+
+# General productivity and utilities
+cask "1password"        # Password manager that keeps all passwords secure behind one password
+cask "notion"           # App to write, plan, collaborate, and get organised
+cask "slack"            # Team communication and collaboration software
+cask "spotify"          # Music streaming service
+cask "logi-options+"    # Logitech mouse and keyboard configuration tool
+
+# Microsoft Suite
+#
+# My company uses Microsoft to manage its users, so I also use Edge for browsing.
+cask "microsoft-edge"               # Web browser for work
+#cask "microsoft-office"            # Microsoft Office Suite (Word, Excel, Outlook, etc.)
+cask "microsoft-office-businesspro" # Microsoft Office Suite (with Teams and OneDrive)
+# The auto-update tool is automatically installed with the Office Suite.
+#cask "microsoft-auto-update"        # Provides updates to various Microsoft products (required by "microsoft-office")
+
+# IDE (development environments)
+cask "visual-studio-code"
+
+# Visual Studio Code enhanced experience
+vscode "ms-vscode-remote.remote-containers" # Open any folder or repository inside a Docker container and take advantage of Visual Studio Code's full feature set
+vscode "ms-vsliveshare.vsliveshare"         # Real-time collaborative development from the comfort of your favorite tools
+vscode "vscodevim.vim"                      # Vim emulation for Visual Studio Code
+vscode "vscode-icons-team.vscode-icons"     # Icons for Visual Studio Code
+
+# Enhanced productivity with AI
+cask "chatgpt"                  # OpenAI's official ChatGPT desktop app
+vscode "github.copilot"         # Your AI pair programmer
+vscode "github.copilot-chat"    # AI chat features powered by Copilot
+
+# Developing with GitHub
+brew "gh"                                   # GitHub command-line tool
+cask "github"                               # GitHub desktop (desktop client for GitHub repositories)
+vscode "github.vscode-pull-request-github"  # GitHub Pull Requests and Issues
+vscode "github.github-vscode-theme"         # GitHub theme for VS Code
+vscode "github.vscode-github-actions"       # GitHub Actions workflows and runs for repositories in VS Code
+
+# Go development
+brew "golang"               # The Go programming language
+vscode "golang.go"          # Rich Go language support for Visual Studio Code
+brew "golangci-lint"        # Fast linters runner for Go
+
+# Cloud development and Kubernetes
+brew "kubectl"              # Kubernetes command-line interface
+brew "helm"                 # Kubernetes package manager
+cask "docker"               # Docker desktop (community edition)
+#brew "docker"              # Docker client CLI (installed by docker-desktop cask)
+# There are several good Infrastructure-as-Code tools. So far, I've only ever
+# used Pulumi. When needed, install manually. 
+#brew "pulumi"              # IaC CLI tool (Pulumi is a cloud-native development platform)
+vscode "ms-azuretools.vscode-docker"                    # Makes it easy to create, manage, and debug containerized applications
+vscode "ms-kubernetes-tools.vscode-kubernetes-tools"    # Develop, deploy and debug Kubernetes applications
+
+# Working with cloud services
+#
+# Some of these tools are excluded though useful because I did not use them
+# often enough. When necessary, these tools can be easily installed manually.
+#brew "awscli"                                   # AWS cloud CLI
+#brew "s3cmd"                                    # AWS S3 storage explorer (shell)
+#brew "azure-cli"                                # Azure cloud CLI
+#cask "microsoft-azure-storage-explorer"         # Azure blob storage explorer (visual)
+#vscode "ms-kubernetes-tools.vscode-aks-tools"   # Display Azure Kubernetes Services within VS Code
+
+# Visual Studio Code remote ssh tools
+#
+# I don't use these extensions often, so I disable them for now.
+#vscode "ms-vscode-remote.remote-ssh"        # Open any folder on a remote machine using SSH and take advantage of VS Code's full feature set
+#vscode "ms-vscode-remote.remote-ssh-edit"   # Edit SSH configuration files
+#vscode "ms-vscode.remote-explorer"          # View remote machines for SSH and Tunnels
+#vscode "rogalmic.bash-debug"                # A debugger extension for bash scripts (using bashdb)
+
+# Virtualisation
+#cask "vmware-fusion"          # Create, manage, and run virtual machines
