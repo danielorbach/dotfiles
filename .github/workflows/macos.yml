@@ -49,15 +49,14 @@ jobs:
 
       - name: 👁️ Inspect ~/.zshrc
         run: cat ~/.zshrc
-        continue-on-error: true
+        continue-on-error: true  # TODO: fail-on-error when the file is populated by the bootstrap scripts.
 
       - name: 👁️ Inspect ~/.zshenv
         run: cat ~/.zshenv
-        continue-on-error: true
+        continue-on-error: true  # TODO: fail-on-error when the file is populated by the bootstrap scripts.
 
       - name: 👁️ Inspect ~/.zprofile
         run: cat ~/.zprofile
-        continue-on-error: true
 
       - name: Check user-interface
         run: |
