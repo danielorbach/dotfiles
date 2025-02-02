@@ -20,6 +20,10 @@
 
 # Enable strict mode for better error handling.
 setopt errexit nounset pipefail
+# If a pattern for filename generation has no matches, delete the pattern from
+# the argument list instead of reporting an error.  This prevents errors when
+# a glob pattern does not match any files.
+setopt NULL_GLOB
 
 
 # === HELPERS ===
