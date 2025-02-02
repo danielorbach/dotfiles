@@ -49,9 +49,12 @@ jobs:
 
       - name: 👁️ Inspect ~/.zshrc
         run: cat ~/.zshrc
+        continue-on-error: true
 
       - name: 👁️ Inspect ~/.zshenv
         run: cat ~/.zshenv
+        continue-on-error: true
 
       - name: 👁️ Inspect ~/.zprofile
         run: cat ~/.zprofile
+        continue-on-error: true
