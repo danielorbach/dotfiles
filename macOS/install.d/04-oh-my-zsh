@@ -1,0 +1,102 @@
+#!/bin/zsh
+#
+# This init script installs oh-my-zsh for an enhanced shell experience.
+#
+# This script is safe to execute multiple times on the same machine (idempotent).
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Install oh-my-zsh if not already installed.
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    echo "oh-my-zsh already installed."
+    exit 0
+else
+    echo "Installing oh-my-zsh..."
+fi
+
+# Oh My Zsh loads into Zsh shells by sourcing its 'oh-my-zsh.sh' script in
+# the user's zshrc file.
+#
+# The '--keep-zshrc' flag prevents the installation from creating a new zshrc
+# file. This flag is specified below to respect the zshrc file that is already
+# present (after running 01-zsh-dotfiles) and managed by this dotfiles repo. If
+# the managed zshrc file is not present, the installation script cannot continue
+# because we are in an unknown state.
+if ! test -f "$HOME/.zshrc"; then
+    echo "No existing ~/.zshrc file found. It should have been created by the dotfiles repo."
+    exit 1
+fi
+
+# Install oh-my-zsh.
+#   --unattended: sets both CHSH and RUNZSH to 'no'
+#   --keep-zshrc: sets KEEP_ZSHRC to 'yes'
+# I don't know why the empty "" is needed, but it is. It even says so in the
+# help for install.sh script. Otherwise the first flag is ignored.
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+
+# The command above only downloads oh-my-zsh into ~/.oh-my-zsh, but does not
+# modify the zshrc file. The zshrc file is managed by the dotfiles repo, and
+# as such, this script will now modify it to source oh-my-zsh.
+#
+# The content of the zshrc file is copied from the "templates/minimal.zshrc"
+# file in the oh-my-zsh repository. See the full "templates/zshrc.zsh-template"
+# file for all the possible configurations.
+if ! grep -q '# DOTFILES: Oh My Zsh' ~/.zshrc; then
+  cat >> ~/.zshrc <<EOF
+# DOTFILES: Oh My Zsh
+
+# These lines were copied from the "templates/minimal.zshrc" file in the oh-my-zsh repository.
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell" . # My chosen custom theme.
+plugins=()  # I don't like OMZ plugins, so don't load any of them.
+
+# See the full "templates/zshrc.zsh-template" file for all the possible configurations.
+source $ZSH/oh-my-zsh.sh
+
+# DOTFILES: Oh My Zsh (END)
+EOF
+  echo "~/.zshrc updated to source Oh My Zsh scripts."
+else
+  echo "~/.zshrc already sources Oh My Zsh scripts."
+fi
+
+
+# =============================
+# Post-Installation Information
+#
+# Oh My Zsh sets a lot of shell aliases, and this cannot be disabled
+# (irrespective of plugins). See 'ib/directories.zsh' for most of the aliases.
+#
+# For example, here is a sample output (using 'robbyrussell' theme) of the
+# ls command and its aliases:
+#
+#   ➜  dotfiles git:(macos/scratchpad) ✗ ls
+#   README.md      macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ ll
+#   total 8
+#   -rw-r--r--  1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x  8 danielorbach  staff   256B Jan  7 22:57 macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ la
+#   total 8
+#   drwxr-xr-x  13 danielorbach  staff   416B Jan  7 22:58 .git
+#   drwxr-xr-x   3 danielorbach  staff    96B Jan  9 18:51 .github
+#   -rw-r--r--   1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x   8 danielorbach  staff   256B Jan  7 22:57 macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ l
+#   total 8
+#   drwxr-xr-x   7 danielorbach  staff   224B Jan  9 18:52 .
+#   drwxr-x---+ 33 danielorbach  staff   1.0K Jan  9 20:28 ..
+#   drwxr-xr-x  13 danielorbach  staff   416B Jan  7 22:58 .git
+#   drwxr-xr-x   3 danielorbach  staff    96B Jan  9 18:51 .github
+#   -rw-r--r--   1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x   8 danielorbach  staff   256B Jan  7 22:57 macos
+#   ➜  dotfiles git:(macos/scratchpad) ✗ lsa
+#   total 8
+#   drwxr-xr-x   7 danielorbach  staff   224B Jan  9 18:52 .
+#   drwxr-x---+ 33 danielorbach  staff   1.0K Jan  9 20:28 ..
+#   drwxr-xr-x  13 danielorbach  staff   416B Jan  7 22:58 .git
+#   drwxr-xr-x   3 danielorbach  staff    96B Jan  9 18:51 .github
+#   -rw-r--r--   1 danielorbach  staff    31B Dec 31 17:06 README.md
+#   drwxr-xr-x   8 danielorbach  staff   256B Jan  7 22:57 macos
