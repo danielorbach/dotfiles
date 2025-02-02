@@ -16,8 +16,8 @@
 # This file is ideal for provisioning new machines or sharing with teammates.
 
 # Taps (repositories for additional formulae or casks)
-tap "homebrew/core"     # Core formulae repository (tapped by default)
-tap "homebrew/cask"     # Casks repository for GUI apps (tapped by default)
+#tap "homebrew/core"    # Core formulae repository (tapped by default, so not necessary)
+#tap "homebrew/cask"    # Casks repository for GUI apps (tapped by default, so not necessary)
 tap "homebrew/bundle"   # Bundle support for managing Brewfiles (tapped lazily by the 'brew bundle' command)
 
 # Alternative flavours
