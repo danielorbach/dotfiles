@@ -6,7 +6,7 @@
 # according to the user's preferences.
 #
 # Usage:
-#   $(dotfiles)/macOS/check.sh
+#   $(dotfiles)/macOS/check
 #
 # Note:
 #   - This script must be run using Zsh because it also checks that Zsh has been
