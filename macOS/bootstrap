@@ -1,0 +1,124 @@
+#!/bin/zsh
+#
+# Dotfiles Bootstrap Script (MacBook)
+#
+# This script automates the installation and setup of a macOS machine.
+# It performs the following tasks:
+#   1. Ensures the script is running in the correct environment (Zsh, macOS, Apple Silicon).
+#   2. Installs necessary applications by executing scripts in the 'install.d' directory.
+#   3. Configures the system according to user preferences by executing scripts in the 'setup.d' directory.
+#
+# The script is designed to be idempotent, meaning it can be safely executed
+# multiple times without causing unintended side effects.
+#
+# Usage:
+#   $(dotfiles)/macOS/bootstrap
+#
+# Note:
+#   - This script must be run using Zsh.
+#   - It only supports macOS (Darwin) on Apple Silicon (arm64).
+
+# Enable strict mode for better error handling.
+setopt errexit nounset pipefail
+# If a pattern for filename generation has no matches, delete the pattern from
+# the argument list instead of reporting an error.  This prevents errors when
+# a glob pattern does not match any files.
+setopt NULL_GLOB
+
+
+# === HELPERS ===
+
+error() {
+  # Print message in red.
+  echo -e "\\033[1;31m[ERROR]\\033[0m $*" >&2
+  exit 1
+}
+
+info() {
+  # Print message in green.
+  echo -e "\\033[1;32m[INFO]\\033[0m  $*"
+}
+
+warn() {
+  # Print message in green.
+  echo -e "\\033[1;33m[WARN]\\033[0m  $*"
+}
+
+
+
+# === INTRO ===
+
+echo " +-------------------------------------------------------+ "
+echo " |        Dotfiles Bootstrap Script (MacBook)            | "
+echo " +-------------------------------------------------------+ "
+
+
+
+# === CHECKS ===
+
+# Ensure we are running in Zsh.
+if [[ -z "${ZSH_VERSION:-}" ]]; then
+  error "This script must be run using zsh."
+fi
+
+# Ensure we are on macOS (Darwin).
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  error "This script only supports macOS (Darwin)."
+fi
+
+# Ensure the architecture is Apple Silicon (arm64).
+if [[ "$(uname -m)" != "arm64" ]]; then
+  error "This script must be run on Apple Silicon (arm64)."
+fi
+
+info "👍 All checks passed. Proceeding with bootstrap..."
+
+
+
+# === BOOTSTRAP ===
+
+# Get the absolute path (resolving symlinks) of the script.
+# Then strip the filename, leaving just the directory.
+SCRIPT_DIR="${0:A:h}"
+
+# First, install all applications in lexicographical order. This is important
+# because some applications may depend on others being installed first.
+#
+# Files in the 'install.d' directory that are not executable will be ignored.
+info "🚀 Installing applications..."
+for script in "$SCRIPT_DIR"/install.d/*; do
+  if [[ -f "$script" && -x "$script" ]]; then
+    # Run the script. Running the program should open a new shell, so changes
+    # made to the shell environment by previous scripts should take affect
+    # immediately.
+    info "⌛️ Running $script..."
+    if "$script"; then
+      info "👍 Installation script completed successfully: $script"
+    else
+      error "💥 Failed to run installation script: $script"
+    fi
+  else
+    warn "🙋‍♀️ Found non-executable installation script: $script"
+  fi
+done
+info "🎉 All applications installed successfully!"
+
+# Now that the system has all the necessary capabilities, we can configure it
+# according to our preferences. This step is called setup because "configure"
+# is an ambiguous term and I like "setup" better.
+info "🚀 Setting up system..."
+for script in "$SCRIPT_DIR"/setup.d/*; do
+  if [[ -f "$script" && -x "$script" ]]; then
+    info "⌛️ Running $script..."
+    if "$script"; then
+      info "👍 Setup script completed successfully: $script"
+    else
+      error "💥 Failed to run setup script: $script"
+    fi
+  else
+    warn "🙋‍♀️ Found non-executable setup script: $script"
+  fi
+done
+info "🎉 System setup completed successfully!"
+
+info "🎉 Bootstrap completed successfully!"

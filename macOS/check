@@ -1,0 +1,53 @@
+#!/bin/zsh
+#
+# System Configuration Check Script
+#
+# This script verifies that the macOS machine is ready for use and has been configured
+# according to the user's preferences.
+#
+# Usage:
+#   $(dotfiles)/macOS/check.sh
+#
+# Note:
+#   - This script must be run using Zsh because it also checks that Zsh has been
+#     correctly configured.
+
+# Enable strict mode for better error handling.
+setopt errexit nounset pipefail
+
+
+# === HELPERS ===
+
+error() {
+  # Print message in red.
+  echo -e "\\033[1;31m[ERROR]\\033[0m $*" >&2
+  exit 1
+}
+
+info() {
+  # Print message in green.
+  echo -e "\\033[1;32m[INFO]\\033[0m  $*"
+}
+
+warn() {
+  # Print message in green.
+  echo -e "\\033[1;33m[WARN]\\033[0m  $*"
+}
+
+is_executable() {
+  # Check if the given command is executable.
+  command -v "$1" &> /dev/null
+}
+
+
+# === CHECKS ===
+
+# Check if the script is running in Zsh.
+if [[ -z "${ZSH_VERSION:-}" ]]; then
+  error "This script must be run using Zsh."
+fi
+
+# Check if Homebrew is installed.
+if ! is_executable brew; then
+  error "Homebrew is not installed."
+fi

@@ -28,3 +28,12 @@ fi
 # For this reason, the installation does not automatically modify the PATH
 # variable. For this reason, the installation script instructs the user to
 # manually configure the current shell (Zsh in this case) approritately.
+if ! grep -q '# DOTFILES: Homebrew' ~/.zprofile; then
+  cat >> ~/.zprofile <<EOF
+# DOTFILES: Homebrew
+eval "\$(/opt/homebrew/bin/brew shellenv)"
+EOF
+  echo "~/.zprofile updated to evaluate Homebrew environment."
+else
+  echo "~/.zprofile already evaluates Homebrew environment."
+fi
