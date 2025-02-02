@@ -13,7 +13,7 @@
 #     correctly configured.
 
 # Enable strict mode for better error handling.
-setopt errexit nounset pipefail
+setopt ERREXIT NOUNSET PIPEFAIL
 
 
 # === HELPERS ===

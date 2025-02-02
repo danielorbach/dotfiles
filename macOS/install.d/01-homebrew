@@ -6,7 +6,8 @@
 #
 # Terminology: <https://docs.brew.sh/Formula-Cookbook#homebrew-terminology>
 
-setopt errexit nounset pipefail  # Enable strict mode for better error handling
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
 
 
 command_exists() {
