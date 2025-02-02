@@ -31,3 +31,12 @@ dockutil --no-restart --add "/Applications/ChatGPT.app"
 
 # Restart Dock to apply changes.
 killall Dock
+
+# GitHub Actions runners doesn't auto-restart the Dock. So, we need to do it manually.
+#
+# See GitHub Actions docs for more environment variables:
+# <https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables>.
+if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
+    echo "GitHub Actions environment detected. Starting Dock manually..."
+    open /System/Library/CoreServices/Dock.app
+fi
