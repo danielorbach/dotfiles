@@ -6,14 +6,14 @@
 # according to the user's preferences.
 #
 # Usage:
-#   $(dotfiles)/macOS/check.sh
+#   $(dotfiles)/macOS/check
 #
 # Note:
 #   - This script must be run using Zsh because it also checks that Zsh has been
 #     correctly configured.
 
 # Enable strict mode for better error handling.
-setopt errexit nounset pipefail
+setopt ERREXIT NOUNSET PIPEFAIL
 
 
 # === HELPERS ===
