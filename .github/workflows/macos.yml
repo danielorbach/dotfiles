@@ -56,3 +56,12 @@ jobs:
 
       - name: Check (zsh)
         run: ./macos/check
+
+      - name: 👁️ Inspect ~/.zshrc
+        run: cat ~/.zshrc
+
+      - name: 👁️ Inspect ~/.zshenv
+        run: cat ~/.zshenv
+
+      - name: 👁️ Inspect ~/.zprofile
+        run: cat ~/.zprofile
