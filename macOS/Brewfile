@@ -55,10 +55,9 @@ cask "logi-options+"    # Logitech mouse and keyboard configuration tool
 #
 # My company uses Microsoft to manage its users, so I also use Edge for browsing.
 cask "microsoft-edge"               # Web browser for work
+# Office Suite is not always necessary, and it's a large download. So, I disable it by default.
 #cask "microsoft-office"            # Microsoft Office Suite (Word, Excel, Outlook, etc.)
-cask "microsoft-office-businesspro" # Microsoft Office Suite (with Teams and OneDrive)
-# The auto-update tool is automatically installed with the Office Suite.
-#cask "microsoft-auto-update"        # Provides updates to various Microsoft products (required by "microsoft-office")
+#cask "microsoft-office-businesspro" # Microsoft Office Suite (with Teams and OneDrive)
 
 # IDE (development environments)
 cask "visual-studio-code"
