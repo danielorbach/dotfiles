@@ -1,0 +1,59 @@
+#!/bin/zsh
+#
+# This setup script configures git on a macOS machine.
+#
+# By default, it configures my personal name and email address. For work or other
+# purposes, you can override these values manually by running:
+#
+#   git config --global user.name "Work Name"
+#   git config --global user.email "my.name@workplace.com"
+#
+# Before modifying the configuration, the script backs up the existing settings
+# to stdout. Only the global config file is modified.
+#
+# Hint: run 'git config -l --show-origin' to see all the explicit configurations
+# and their sources.
+#
+# This script is safe to execute multiple times on the same machine (idempotent).
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+## Backup the existing git configuration to stdout.
+echo "📦 Showing the existing git configuration (before modification)..."
+git --no-pager config --list --show-origin
+
+
+# Configure git's most basic settings: user name and email.
+#
+# These settings should be overridden by the work-specific email when needed.
+git config --global user.name "Daniel Orbach"
+git config --global user.email "ddorbach@gmail.com"
+
+# By default, Git does not create an extra merge commit when merging a commit
+# that is a descendant of the current commit. Instead, the tip of the current
+# branch is fast-forwarded.
+#
+# When set to only, only such fast-forward merges are allowed (equivalent to
+# giving the --ff-only option from the command line).
+#
+# This setting overrides merge.ff when pulling.
+git config --global pull.ff only
+
+# If set to true, enable the --autosquash option of git-rebase(1) by default for
+# interactive mode. This can be overridden with the --no-autosquash option.
+git config --global rebase.autoSquash true
+
+# If set to true enable --update-refs option by default.
+git config --global rebase.updateRefs true
+
+
+# Common aliases
+# --------------
+
+# Push with force, but with the safety measures (read the docs for more info).
+git config --global alias.pushf "push --force-with-lease --force-if-includes"
+
+# Display the git commit history as a graph
+git config --global alias.graph "log --oneline --graph"
