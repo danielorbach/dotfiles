@@ -1,0 +1,20 @@
+#!/bin/zsh
+#
+# This setup script configures the GitHub CLI on a macOS machine.
+#
+# When running this script on a GitHub Actions runner, the GitHub CLI is already
+# installed and configured, so it will do nothing.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Quit early if running on a GitHub Actions runner.
+if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
+  echo "⏭️  Running on a GitHub Actions runner. Skipping GitHub CLI setup..."
+  exit
+fi
+
+# The GitHub Copilot extension for GitHub CLI is somewhat useless,
+# but AI is the cool thing these days. So, let's install it.
+gh extension install github/gh-copilot
