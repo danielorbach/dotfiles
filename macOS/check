@@ -51,3 +51,10 @@ fi
 if ! is_executable brew; then
   error "Homebrew is not installed."
 fi
+
+# Check that Zsh completions are enabled.
+if zsh -i -c 'typeset -p _comps'; then
+  info "✅ Zsh completions are enabled."
+else
+  error "❌ Zsh completions are not enabled."
+fi
