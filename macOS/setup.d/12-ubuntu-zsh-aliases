@@ -1,0 +1,39 @@
+#!/bin/zsh
+#
+# This setup script configures ~/.zshrc on a macOS machine to include the
+# shell aliases that are commonly used on Ubuntu's Bash shell.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Check if the Zsh configuration file exists.
+if ! test -f "$HOME/.zshrc"; then
+    echo "No existing ~/.zshrc file found. It should have been created by the dotfiles repo."
+    exit 1
+fi
+
+# Check if the Ubuntu Zsh aliases have already been added.
+if grep -q '# DOTFILES: Ubuntu Bash Aliases' ~/.zshrc; then
+  echo "The Ubuntu Bash aliases have already been added to ~/.zshrc."
+  exit 0
+fi
+
+# Add the Ubuntu Zsh aliases to the Zsh configuration file.
+cat >> ~/.zshrc <<EOF
+
+# DOTFILES: Ubuntu Bash Aliases
+
+# Aliases imported from Ubuntu.
+# Some will be overwritten by Oh-My-Zsh (see \$ZSH/lib/directories.zsh).
+alias ls='ls -F --color=auto'
+alias ll='ls -alh --color=auto'
+alias la='ls -F -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# DOTFILES: Ubuntu Bash Aliases (END)
+
+EOF
