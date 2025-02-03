@@ -1,6 +1,11 @@
 #!/bin/zsh
 #
 # This setup script configures the application shortcuts in the Dock.
+#
+# I group the applications in the Dock by their purpose. The system applications
+# that are used specifically in macOS are placed at the beginning. Then, the
+# frequently used productivity applications are added. Finally, the development
+# tools are added at the end.
 
 # Enable strict mode for better error handling.
 setopt ERREXIT NOUNSET PIPEFAIL
@@ -9,7 +14,6 @@ setopt ERREXIT NOUNSET PIPEFAIL
 # Clear all apps from Dock.
 dockutil --no-restart --remove all
 
-# First, add the frequently used Apple apps.
 dockutil --no-restart --add "/System/Applications/Finder.app"
 dockutil --no-restart --add "/System/Applications/Launchpad.app"
 dockutil --no-restart --add "/Applications/Safari.app"
@@ -18,16 +22,15 @@ dockutil --no-restart --add "/System/Applications/Reminders.app"
 dockutil --no-restart --add "/System/Applications/Notes.app"
 dockutil --no-restart --add "/System/Applications/Tips.app"
 dockutil --no-restart --add "/System/Applications/Utilities/Activity Monitor.app"
-dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
-
-# Then, add the frequently used third-party apps.
+dockutil --add '' --type small-spacer  # Add a spacer to separate system apps from others.
 dockutil --no-restart --add "/Applications/Microsoft Edge.app"
 dockutil --no-restart --add "/Applications/Notion.app"
 dockutil --no-restart --add "/Applications/Slack.app"
 #dockutil --no-restart --add "/Applications/Microsoft Teams.app"
-dockutil --no-restart --add "/Applications/Spotify.app"
-dockutil --no-restart --add "/Applications/Visual Studio Code.app"
 dockutil --no-restart --add "/Applications/ChatGPT.app"
+dockutil --no-restart --add '' --type small-spacer  # Add a spacer to separate productivity apps from others.
+dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
+dockutil --no-restart --add "/Applications/Visual Studio Code.app"
 
 # Restart Dock to apply changes.
 killall Dock
