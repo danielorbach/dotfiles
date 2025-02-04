@@ -44,9 +44,6 @@ jobs:
       - name: Bootstrap
         run: ./macos/bootstrap
 
-      - name: Check (zsh)
-        run: ./macos/check
-
       - name: 👁️ Inspect ~/.zshrc
         run: cat ~/.zshrc
 
@@ -55,6 +52,9 @@ jobs:
 
       - name: 👁️ Inspect ~/.zprofile
         run: cat ~/.zprofile
+
+      - name: Check (zsh)
+        run: ./macos/check
 
       - name: Check user-interface
         run: |
