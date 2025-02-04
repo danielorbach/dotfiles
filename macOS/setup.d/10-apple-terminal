@@ -1,0 +1,57 @@
+#!/bin/zsh
+#
+# This setup script configures the Apple Terminal on a macOS machine.
+#
+# It adds a new profile to the Terminal app that is similar to the "Homebrew"
+# profile, but with a different font size.
+#
+# The profile is imported from the "Orbach (Apple Terminal).terminal" file in
+# the "macos" folder. This file can be exported from the Terminal app:
+#   1. Open Terminal → Preferences (Cmd + ,)
+#   2. Select your profile under Profiles
+#   3. Click ⋮ (Actions Menu) → Export and save it as a .terminal file
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Following is the output of the `defaults read com.apple.Terminal` command:
+#
+# Orbach =         {
+#             EnableSmoothResizing = 1;
+#             Font = {length = 267, bytes = 0x62706c69 73743030 d4010203 04050607 ... 00000000 000000cf };
+#             FontAntialias = 1;
+#             FontWidthSpacing = 1;
+#             ProfileCurrentVersion = "2.07";
+#             ShowCommandKeyInTitle = 0;
+#             UseBrightBold = 0;
+#             columnCount = 120;
+#             fontAllowsDisableAntialias = 1;
+#             name = Orbach;
+#             rowCount = 36;
+#             type = "Window Settings";
+#         };
+
+# The script may execute in arbitrary working directories. So, we must find out
+# the absolute path to this script, and find the Terminal relative to it.
+SETUPD_DIR="$(dirname "$(realpath "$0")")"  # The macos/setup.d/ folder.
+MACOS_DIR="$(dirname "$SETUPD_DIR")"  # The macos/ folder.
+TERMINAL_PROFILE="$MACOS_DIR"/"Orbach.terminal"
+
+# Import the Terminal profile. The open command will open the Terminal app and
+# create a new profile with the settings from the imported file.
+open "$TERMINAL_PROFILE"
+
+# Unfortunately, the open command returns immediately, so we have to wait a bit
+# before the profile is available in the Terminal app.
+sleep 2
+
+# Check if the profile has been imported successfully.
+if ! defaults read com.apple.Terminal "Window Settings" | grep -q Orbach; then
+    echo "❌  The Terminal profile was not imported successfully."
+    exit 1
+fi
+
+# Set the custom profile as the default profile.
+defaults write com.apple.Terminal "Default Window Settings" -string "Orbach"
+defaults write com.apple.Terminal "Startup Window Settings" -string "Orbach"

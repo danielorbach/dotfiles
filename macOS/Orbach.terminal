@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnableSmoothResizing</key>
+	<true/>
+	<key>Font</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
+	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGkCwwVFlUkbnVsbNQNDg8QERIT
+	FFZOU1NpemVYTlNmRmxhZ3NWTlNOYW1lViRjbGFzcyNALAAAAAAAABAQgAKAA15TRk1v
+	bm8tUmVndWxhctIXGBkaWiRjbGFzc25hbWVYJGNsYXNzZXNWTlNGb250ohkbWE5TT2Jq
+	ZWN0CBEaJCkyN0lMUVNYXmdud36FjpCSlKOos7zDxgAAAAAAAAEBAAAAAAAAABwAAAAA
+	AAAAAAAAAAAAAADP
+	</data>
+	<key>ProfileCurrentVersion</key>
+	<real>2.0699999999999998</real>
+	<key>ShowCommandKeyInTitle</key>
+	<false/>
+	<key>UseBrightBold</key>
+	<false/>
+	<key>columnCount</key>
+	<integer>120</integer>
+	<key>name</key>
+	<string>Orbach</string>
+	<key>rowCount</key>
+	<integer>36</integer>
+	<key>type</key>
+	<string>Window Settings</string>
+</dict>
+</plist>
