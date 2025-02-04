@@ -61,6 +61,12 @@ jobs:
           mkdir screenshots
           ./macos/check-ui screenshots
 
+      # I don't know if this is the correct way to optimize images; the AI suggests it.
+      - name: Reduce artifacts size
+        run: |
+          find screenshots -type f -name '*.png' -exec optipng -o7 {} \;
+          find screenshots -type f -name '*.png' -exec zopflipng -y {} {} \;
+
       - name: Upload user-interface screenshots
         uses: actions/upload-artifact@v4
         with:
