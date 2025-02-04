@@ -32,6 +32,9 @@ dockutil --no-restart --add '' --type small-spacer  # Add a spacer to separate p
 dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
 dockutil --no-restart --add "/Applications/Visual Studio Code.app"
 
+# The rightmost section of the Dock is reserved for folders and non-application shortcuts.
+dockutil --no-restart --add '~/Downloads' --view fan --display stack --sort dateadded
+
 # Restart Dock to apply changes.
 killall Dock
 
