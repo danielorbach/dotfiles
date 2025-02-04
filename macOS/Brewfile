@@ -61,7 +61,8 @@ cask "microsoft-edge"               # Web browser for work
 #cask "microsoft-office-businesspro" # Microsoft Office Suite (with Teams and OneDrive)
 
 # IDE (development environments)
-cask "visual-studio-code"
+cask "visual-studio-code"           # Open-source code editor
+cask "jetbrains-toolbox"            # JetBrains tools manager
 
 # Visual Studio Code enhanced experience
 vscode "ms-vscode-remote.remote-containers" # Open any folder or repository inside a Docker container and take advantage of Visual Studio Code's full feature set
