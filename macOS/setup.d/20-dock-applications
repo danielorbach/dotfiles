@@ -22,13 +22,11 @@ dockutil --no-restart --add "/System/Applications/Reminders.app"
 dockutil --no-restart --add "/System/Applications/Notes.app"
 dockutil --no-restart --add "/System/Applications/Tips.app"
 dockutil --no-restart --add "/System/Applications/Utilities/Activity Monitor.app"
-dockutil --add '' --type small-spacer  # Add a spacer to separate system apps from others.
 dockutil --no-restart --add "/Applications/Microsoft Edge.app"
 dockutil --no-restart --add "/Applications/Notion.app"
 dockutil --no-restart --add "/Applications/Slack.app"
 #dockutil --no-restart --add "/Applications/Microsoft Teams.app"
 dockutil --no-restart --add "/Applications/ChatGPT.app"
-dockutil --no-restart --add '' --type small-spacer  # Add a spacer to separate productivity apps from others.
 dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
 dockutil --no-restart --add "/Applications/Visual Studio Code.app"
 
