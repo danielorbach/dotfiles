@@ -72,4 +72,6 @@ jobs:
         with:
           name: screenshots
           path: screenshots/*
-          if-no-files-found: error
+        # Even if previous steps have failed, especially check-ui, we still
+        # want to upload whatever artefacts we did manage to create.
+        if: ${{ !cancelled() }}
