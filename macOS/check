@@ -44,10 +44,20 @@ is_executable() {
 
 # Check if the script is running in Zsh.
 if [[ -z "${ZSH_VERSION:-}" ]]; then
-  error "This script must be run using Zsh."
+  error "‼️ This script must be run using Zsh."
 fi
 
 # Check if Homebrew is installed.
 if ! is_executable brew; then
-  error "Homebrew is not installed."
+  error "❌ Homebrew is not installed."
 fi
+
+# Check that Zsh completions are enabled.
+# Note that we must open an interactive subshell to check this, as the completions
+# are only available in interactive mode.
+if zsh -i -c 'typeset -p _comps'; then
+  info "✅ Zsh completions are enabled."
+else
+  error "❌ Zsh completions are not enabled."
+fi
+

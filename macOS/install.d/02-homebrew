@@ -32,7 +32,9 @@ fi
 if ! grep -q '# DOTFILES: Homebrew' ~/.zprofile; then
   cat >> ~/.zprofile <<EOF
 # DOTFILES: Homebrew
+# Set Homebrew environment variables for the current shell session.
 eval "\$(/opt/homebrew/bin/brew shellenv)"
+# DOTFILES: Homebrew (END)
 EOF
   echo "~/.zprofile updated to evaluate Homebrew environment."
 else

@@ -1,0 +1,124 @@
+#!/bin/zsh
+#
+# This init script creates empty Zsh dotfiles on a macos machine, if they do not
+# already exist.
+#
+# This script is safe to execute multiple times on the same machine (idempotent).
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Zshenv is sourced by every Zsh session, be it interactive, non-interactive login, and non-login.
+if [[ ! -f ~/.zshenv ]]; then
+    touch ~/.zshenv
+    cat > ~/.zshenv <<EOF
+# Zsh Environment Configuration File (~/.zshenv)
+#
+# This file is sourced by every Zsh session, be it interactive, non-interactive
+# login, and non-login. Its purpose is to define environment variables and
+# perform minimal, universal setup applicable to all shells.
+#
+# Usage:
+# - Reserve this file for essential environment settings only.
+# - Avoid commands, aliases, or configurations meant for interactive use.
+#
+# Order of Execution:
+# ~/.zshenv is executed before:
+#   1. ~/.zprofile (login shells)
+#   2. ~/.zshrc (interactive shells)
+#   3. ~/.zlogout (on shell exit)
+#
+# Best Practices:
+# - Keep this file minimal to avoid unnecessary overhead for non-interactive shells.
+# - Avoid defining aliases, functions, or interactive shell configurations here.
+# - Focus on exporting essential environment variables (e.g., PATH, LANG, EDITOR).
+#
+# Note:
+# Improper changes here may disrupt both scripts and interactive sessions.
+# Test thoroughly.
+#
+# -----------------------------------------------------------------------------
+
+
+EOF
+    echo "~/.zshenv created."
+else
+    echo "~/.zshenv already exists."
+fi
+
+# Zprofile is sourced by login shells, which are the first shells started when a user logs in.
+if [[ ! -f ~/.zprofile ]]; then
+    touch ~/.zprofile
+    cat > ~/.zprofile <<EOF
+# Zsh Login Configuration File (~/.zprofile)
+#
+# This file is sourced by Zsh for login shells, which are initiated during the
+# start of a new session (e.g. logging in via a terminal, SSH, or on macOS when
+# opening the terminal for the first time). Its purpose is to define settings
+# and commands that should be run once per login session.
+#
+# Usage:
+# - Use this file for environment variables, session-wide initialization, or
+#   commands that should run once per session (i.e. process tree).
+# - Avoid placing interactive or per-shell configurations here; use ~/.zshrc
+#   for those.
+# - Avoid placing settings needed by non-interactive shells; use ~/.zshenv
+#   instead.
+#
+# Order of Execution:
+# ~/.zprofile is executed for login shells, after:
+#   1. ~/.zshenv (universal environment settings)
+# and before:
+#   2. ~/.zshrc (interactive shell-specific settings)
+#
+# Note:
+# Keep this file focused on session-wide tasks, such as:
+# - Setting up persistent environment variables (e.g., PATH, LANG).
+# - Initializing SSH agents or other services needed for the session.
+# - Running commands that must execute only once.
+#
+# -----------------------------------------------------------------------------
+
+
+EOF
+    echo "~/.zprofile created."
+else
+    echo "~/.zprofile already exists."
+fi
+
+# Zshrc is sources for all interactive shells.
+if [[ ! -f ~/.zshrc ]]; then
+    touch ~/.zshrc
+    cat > ~/.zshrc <<EOF
+# Zsh Interactive Configuration File (~/.zshrc)
+#
+# This file is sourced by Zsh for every interactive shells. Its purpose is to
+# define configurations, aliases, functions, and settings that enhance your
+# interactive shell experience.
+#
+# Usage:
+# - Use this file for interactive shell-specific settings.
+# - Avoid placing environment variables or non-interactive settings here;
+#   use ~/.zshenv for those.
+# - Avoid running slow commands that should run only once per process tree;
+#   use ~/.zprofile for those.
+#
+# Order of Execution:
+# ~/.zshrc is executed only for interactive shells, after:
+#   1. ~/.zshenv (universal environment settings)
+#   2. ~/.zprofile have already run once during the initial login
+# It is skipped in non-interactive contexts (e.g., shell scripts).
+#
+# Note:
+# This file affects your interactive workflow. Keep it organized and modular
+# to ensure a clean, maintainable setup.
+#
+# -----------------------------------------------------------------------------
+
+
+EOF
+    echo "~/.zshrc created."
+else
+    echo "~/.zshrc already exists."
+fi

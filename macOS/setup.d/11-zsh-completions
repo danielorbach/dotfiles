@@ -1,0 +1,37 @@
+#!/bin/zsh
+#
+# This setup script configures the Zsh completions on a macOS machine.
+#
+# By default, Zsh starts with a basic, Bash-like completion system to maintain
+# backward compatibility. The advanced completion system, which offers more
+# powerful and customizable features, is not enabled by default and requires
+# explicit initialization.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Check if the Zsh configuration file exists.
+if ! test -f "$HOME/.zshrc"; then
+    echo "No existing ~/.zshrc file found. It should have been created by the dotfiles repo."
+    exit 1
+fi
+
+# Check if the Zsh completions have already been added.
+if grep -q '# DOTFILES: Zsh Completions' ~/.zshrc; then
+    echo "The Zsh completions have already been added to ~/.zshrc."
+    exit 0
+fi
+
+# Add the Zsh completions to the Zsh configuration file.
+cat >> ~/.zshrc <<EOF
+
+# DOTFILES: Zsh Completions
+
+# Enable advanced Zsh completions.
+autoload -Uz compinit
+compinit
+
+# DOTFILES: Zsh Completions (END)
+
+EOF

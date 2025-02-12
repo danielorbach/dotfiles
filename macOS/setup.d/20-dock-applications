@@ -1,0 +1,46 @@
+#!/bin/zsh
+#
+# This setup script configures the application shortcuts in the Dock.
+#
+# I group the applications in the Dock by their purpose. The system applications
+# that are used specifically in macOS are placed at the beginning. Then, the
+# frequently used productivity applications are added. Finally, the development
+# tools are added at the end.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# Clear all apps from Dock.
+dockutil --no-restart --remove all
+
+dockutil --no-restart --add "/System/Applications/Finder.app"
+dockutil --no-restart --add "/System/Applications/Launchpad.app"
+dockutil --no-restart --add "/Applications/Safari.app"
+dockutil --no-restart --add "/System/Applications/Calendar.app"
+dockutil --no-restart --add "/System/Applications/Reminders.app"
+dockutil --no-restart --add "/System/Applications/Notes.app"
+dockutil --no-restart --add "/System/Applications/Tips.app"
+dockutil --no-restart --add "/System/Applications/Utilities/Activity Monitor.app"
+dockutil --no-restart --add "/Applications/Microsoft Edge.app"
+dockutil --no-restart --add "/Applications/Notion.app"
+dockutil --no-restart --add "/Applications/Slack.app"
+#dockutil --no-restart --add "/Applications/Microsoft Teams.app"
+dockutil --no-restart --add "/Applications/ChatGPT.app"
+dockutil --no-restart --add "/System/Applications/Utilities/Terminal.app"
+dockutil --no-restart --add "/Applications/Visual Studio Code.app"
+
+# The rightmost section of the Dock is reserved for folders and non-application shortcuts.
+dockutil --no-restart --add '~/Downloads' --view fan --display stack --sort dateadded
+
+# Restart Dock to apply changes.
+killall Dock
+
+# GitHub Actions runners doesn't auto-restart the Dock. So, we need to do it manually.
+#
+# See GitHub Actions docs for more environment variables:
+# <https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables>.
+if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
+    echo "GitHub Actions environment detected. Starting Dock manually..."
+    open /System/Library/CoreServices/Dock.app
+fi

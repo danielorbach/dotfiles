@@ -44,28 +44,34 @@ jobs:
       - name: Bootstrap
         run: ./macos/bootstrap
 
-      - name: Check (zsh)
-        run: ./macos/check
-
       - name: 👁️ Inspect ~/.zshrc
         run: cat ~/.zshrc
-        continue-on-error: true  # TODO: fail-on-error when the file is populated by the bootstrap scripts.
 
       - name: 👁️ Inspect ~/.zshenv
         run: cat ~/.zshenv
-        continue-on-error: true  # TODO: fail-on-error when the file is populated by the bootstrap scripts.
 
       - name: 👁️ Inspect ~/.zprofile
         run: cat ~/.zprofile
+
+      - name: Check (zsh)
+        run: ./macos/check
 
       - name: Check user-interface
         run: |
           mkdir screenshots
           ./macos/check-ui screenshots
 
+      # I don't know if this is the correct way to optimize images; the AI suggests it.
+      - name: Reduce artifacts size
+        run: |
+          find screenshots -type f -name '*.png' -exec optipng -o7 {} \;
+          find screenshots -type f -name '*.png' -exec zopflipng -y {} {} \;
+
       - name: Upload user-interface screenshots
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
           path: screenshots/*
-          if-no-files-found: error
+        # Even if previous steps have failed, especially check-ui, we still
+        # want to upload whatever artefacts we did manage to create.
+        if: ${{ !cancelled() }}
