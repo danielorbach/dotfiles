@@ -61,20 +61,3 @@ else
   error "❌ Zsh completions are not enabled."
 fi
 
-# Check the default profile of the Terminal app.
-# We retrieve the default Terminal profile using osascript instead of reading the
-# preferences file directly, because we set the default profile using that method.
-defaultProfile=$(osascript <<'EOF'
-tell application "Terminal"
-    activate
-    delay 2  -- I find this is required by ampirically.
-    set defaultProfileName to name of default settings
-end tell
-return defaultProfileName
-EOF
-)
-if [[ "$defaultProfile" == "Orbach" ]]; then
-  info "✅ Default Terminal profile is set to 'Orbach'."
-else
-  error "❌ Default Terminal profile is set to '$defaultProfile'."
-fi
