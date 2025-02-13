@@ -22,7 +22,7 @@ setopt ERREXIT NOUNSET PIPEFAIL
 
 ## Backup the existing git configuration to stdout.
 echo "📦 Showing the existing git configuration (before modification)..."
-git --no-pager config --list --show-origin
+git --no-pager config list --show-origin
 
 
 # Configure git's most basic settings: user name and email.
