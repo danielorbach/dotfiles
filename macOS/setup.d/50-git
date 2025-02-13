@@ -56,4 +56,4 @@ git config --global rebase.updateRefs true
 git config --global alias.pushf "push --force-with-lease --force-if-includes"
 
 # Display the git commit history as a graph
-git config --global alias.graph "git log --oneline --graph"
+git config --global alias.graph "log --oneline --graph"
