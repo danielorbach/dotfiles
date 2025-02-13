@@ -14,7 +14,6 @@ setopt ERREXIT NOUNSET PIPEFAIL
 # Clear all apps from Dock.
 dockutil --no-restart --remove all
 
-dockutil --no-restart --add "/System/Applications/Finder.app"
 dockutil --no-restart --add "/System/Applications/Launchpad.app"
 dockutil --no-restart --add "/Applications/Safari.app"
 dockutil --no-restart --add "/System/Applications/Calendar.app"
