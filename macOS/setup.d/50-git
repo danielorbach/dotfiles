@@ -45,9 +45,6 @@ git config --global pull.ff only
 # interactive mode. This can be overridden with the --no-autosquash option.
 git config --global rebase.autoSquash true
 
-# If set to true enable --update-refs option by default.
-git config --global rebase.updateRefs true
-
 
 # Common aliases
 # --------------
