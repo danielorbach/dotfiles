@@ -46,12 +46,13 @@ set statusline+=%=              " Rest: right align
 set statusline+=%l,%c%V         " Position in buffer: linenumber, column, virtual column
 set statusline+=\ %P            " Position in buffer: Percentage
 
-if &term =~ 'xterm-256color'    " mintty identifies itself as xterm-compatible
-  if &t_Co == 8
-    set t_Co = 256              " Use at least 256 colors
-  endif
-    set termguicolors           " Uncomment to allow truecolors on mintty
+" Some terminal emulators support 256 colors, but not true colors. This is the
+" case for Apple Terminal and iTerm2. When true colors are supported, we can
+" enable them by setting the termguicolors option.
+if &term !~ '256color'
+    set termguicolors
 endif
+
 "------------------------------------------------------------------------------
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
