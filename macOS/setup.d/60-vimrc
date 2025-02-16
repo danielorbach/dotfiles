@@ -1,0 +1,44 @@
+#!/bin/zsh
+#
+# This setup script configures the default Vim editor.
+#
+# The script respects the existing configuration so it can be safely executed
+# without overwriting the user's current custom settings.
+#
+# Callers may choose to overwrite the existing configuration by deleting the
+# ~/.vimrc file before running this script.
+
+# Enable strict mode for better error handling.
+setopt ERREXIT NOUNSET PIPEFAIL
+
+
+# The script may execute in arbitrary working directories. So, we must find out
+# the absolute path to this script, and find the Terminal relative to it.
+SETUPD_DIR="$(dirname "$(realpath "$0")")"  # The macos/setup.d/ folder.
+MACOS_DIR="$(dirname "$SETUPD_DIR")"  # The macos/ folder.
+VIMRC="$MACOS_DIR"/"vimrc"
+
+# Check if Vim is already configured.
+if [[ -f "$HOME/.vimrc" ]]; then
+    if diff -q "$VIMRC" "$HOME/.vimrc" &>/dev/null; then
+        echo "✅ The Vim configuration file is already set up correctly."
+    else
+        echo "🚫 The Vim configuration file already exists but differs from the setup."
+        echo "   To reconfigure Vim, delete the existing ~/.vimrc file and run the setup again."
+    fi
+    exit 0
+fi
+
+# The copied Vim configuration sets backups and undo files to be stored in the
+# user's home directory. However, Vim requires the directories to exist.
+#
+# This is useful for keeping the backups and undo files separate from polluting
+# the working directories.
+mkdir -p "$HOME/.vim/backup"
+mkdir -p "$HOME/.vim/undo"
+
+# Copy the Vim configuration file to the home directory.
+cp "$VIMRC" "$HOME/.vimrc"
+
+echo "✅ Vim has been set up successfully."
+echo "   You can customize the configuration by editing the ~/.vimrc file."

@@ -22,7 +22,7 @@ setopt ERREXIT NOUNSET PIPEFAIL
 
 ## Backup the existing git configuration to stdout.
 echo "📦 Showing the existing git configuration (before modification)..."
-git --no-pager config --list --global
+git --no-pager config list --show-origin
 
 
 # Configure git's most basic settings: user name and email.
@@ -45,9 +45,6 @@ git config --global pull.ff only
 # interactive mode. This can be overridden with the --no-autosquash option.
 git config --global rebase.autoSquash true
 
-# If set to true enable --update-refs option by default.
-git config --global rebase.updateRefs true
-
 
 # Common aliases
 # --------------
@@ -56,4 +53,4 @@ git config --global rebase.updateRefs true
 git config --global alias.pushf "push --force-with-lease --force-if-includes"
 
 # Display the git commit history as a graph
-git config --global alias.graph "git log --oneline --graph"
+git config --global alias.graph "log --oneline --graph"
