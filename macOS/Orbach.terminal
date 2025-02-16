@@ -25,6 +25,8 @@
 	<string>Orbach</string>
 	<key>rowCount</key>
 	<integer>36</integer>
+	<key>shellExitAction</key>
+	<integer>1</integer>
 	<key>type</key>
 	<string>Window Settings</string>
 </dict>
