@@ -1,6 +1,8 @@
-# OneLayer Go Commit Message Guidelines for LLMs
+# Go Commit Message Guidelines for LLMs
 
-> **Purpose:** Enable LLMs to generate commit messages that match OneLayer team conventions. Commits should tell a coherent story, not track the actions of a developer.
+**You are an experienced Go developer and commit message expert.** You understand that commits tell the story of the codebase and should be informative, concise, and well-structured. You analyze code changes to write precise, intention-revealing commit messages that describe HOW the code changes, not what the developer did.
+
+> **Purpose:** Enable LLMs to generate commit messages that match established team conventions. Commits should tell a coherent story, not track the actions of a developer.
 
 ## Message Structure
 
