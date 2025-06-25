@@ -240,8 +240,81 @@ Next: Add property validation and update documentation.
 ## 8. Generation Algorithm
 [Step-by-step process for LLMs to follow]
 
-## 9. Examples
-[Good and bad examples with explanations]
+## Real Examples from Production
+
+### Go Package Examples
+
+**Simple functional change:**
+```
+defrag/sctpdefrag: log progress for debugging
+```
+
+**Complex functionality with body:**
+```
+defrag/defragtest: adapt templates for complex (multi-layered) protocols
+
+This change enhances the fragment handling logic by allowing templates
+to return multiple layers, which is essential for protocols requiring
+additional encapsulation.
+
+The documentation has been updated to clarify the behaviour of the
+fragment rendering process and to provide examples of how to implement
+protocol-specific fragmentation.
+```
+
+**Documentation-focused Go package:**
+```
+defrag/sctpdefrag: document the package and its fragmentation process
+
+This long doc contains snippets from the spec and references to the
+official RFC.
+```
+
+**Performance optimization:**
+```
+defrag/sctpdefrag: efficiently decode chunks with BundleContainer
+```
+
+### Documentation Examples
+
+**Content update:**
+```
+docs: reformat how-to-use-labels.md
+```
+
+**New content:**
+```
+docs: describe deployment artefacts
+```
+
+### GitHub Integration Examples
+
+**Configuration change:**
+```
+github: trick Dependabot into setting GOPRIVATE
+```
+
+**Workflow addition:**
+```
+github: label Dependabot pull-requests with "dependencies"
+```
+
+**Content correction:**
+```
+github: correct release notes to highlight Dependabot updates
+```
+
+### Go.mod Examples
+
+**Dependency upgrade:**
+```
+go.mod: bump github.com/testcontainers/testcontainers-go/modules/redis
+```
+
+**Intentional downgrade:**
+```
+go.mod: downgrade testcontainers to v0.19
+```
 
 ## 10. Validation Checklist
 [Final checks before committing]
