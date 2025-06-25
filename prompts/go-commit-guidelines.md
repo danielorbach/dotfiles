@@ -34,52 +34,75 @@ references to context that may help future readers.
 
 **Key Principle:** Describe HOW the target changes, not WHAT you did as a developer.
 
-## Package Prefix Rules
+## Target Identification Rules
 
-**For Go packages:** Use at most two leaf segments of the path from the Go module root.
+### Go Packages (Most Common)
 
-**Domain-specific prefixes:**
-- `visibility:` — network-twin and visibility product features
-- `segmentation:` — traffic-validator and segmentation features
-- `all:` — cross-cutting changes, refactoring orthogonal to domain values
-- `docs:` — documentation changes
-- `x/library:` — specific shared library updates
-- `v/vendor:` — vendor integration components
+**Rule:** Use at most two leaf segments of the path from the Go module root.
 
 **Examples:**
 - `visibility/activity` (specific package)
-- `fingerprint/gsma` (specific package)
-- `visibility:` (domain-wide change)
+- `fingerprint/gsma` (specific package)  
 - `cmd/tool-name` (command-line tools)
 
-**Common non-Go targets:**
+**Domain-specific prefixes for cross-cutting changes:**
+- `visibility:` — network-twin and visibility product features
+- `segmentation:` — traffic-validator and segmentation features
+- `all:` — cross-cutting changes, refactoring orthogonal to domain values
+- `x/library:` — specific shared library updates
+- `v/vendor:` — vendor integration components
 
-**Module and dependencies:**
+### Documentation (Second Most Common)
+
+**Rule:** Use `docs:` for all documentation changes.
+
+**Files that use `docs:` target:**
+- `README.md`, `CONTRIBUTING.md`, `*.md` files
+- `docs/` directory and contents
+- Any documentation-focused changes
+
+**Sentence completion:** "This change modifies documentation to..."
+
+### GitHub Integration (Second Most Common)
+
+**Rule:** Use `github:` for all GitHub-related changes.
+
+**Files that use `github:` target:**
+- `.github/` directory (workflows, templates, etc.)
+- GitHub-specific configuration files
+
+**Sentence completion:** "This change modifies GitHub integration to..."
+
+### Other Common Targets
+
+**Module dependencies:**
 - `go.mod:` → "This change modifies module dependencies to..."
 
 **Version control:**
 - `git:` → "This change modifies git configuration to..." (`.gitignore`, `.gitattributes`)
 
-**CI/CD and automation:**
-- `github:` → "This change modifies GitHub integration to..." (`.github/` directory)
-- `ci:` → "This change modifies CI configuration to..." (CI files outside `.github`)
+**CI/CD (outside GitHub):**
+- `ci:` → "This change modifies CI configuration to..."
 
 **Build system:**
 - `build:` → "This change modifies build system to..." (`Makefile`, build scripts)
 
-**Tool configurations:**
+**Tool configurations (named after CLI tool):**
 - `golangci:` → "This change modifies golangci-lint configuration to..." (`.golangci.yml`)
 - `prettier:` → "This change modifies prettier configuration to..." (`.prettierrc`)
 - `docker:` → "This change modifies docker configuration to..." (`Dockerfile`, `docker-compose.yml`)
 
-**Non-code directories (use first segment only):**
+**Non-code directories:**
+- **Rule:** Use first segment only
 - `scripts:` → "This change modifies scripts to..." (`scripts/customer-a/` → `scripts:`)
-- `github:` → "This change modifies GitHub integration to..." (`.github/workflows/` → `github:`)
 
-**Documentation:**
-- `docs:` → "This change modifies documentation to..." (`README.md`, `CONTRIBUTING.md`, `*.md` files, `docs/` directory)
+### Decision Algorithm
 
-**When in doubt:** Use the last two segments of the package path.
+1. **Is it a Go package?** Use two-segment rule or domain prefix
+2. **Is it documentation?** Use `docs:`
+3. **Is it GitHub-related?** Use `github:`
+4. **Is it a known target type?** Use specific rules above
+5. **When in doubt:** Use the last two segments of the path
 
 ## 4. Verb Selection (Based on Git Diff Patterns)
 
