@@ -7,13 +7,13 @@
 ## Message Structure
 
 ```text
-package/prefix: a short one line summary of the change.
+package/path: a short one line summary of how the target changes as a result
   [  a blank line  ]
-A short paragraph explaining the key aspects of the change and the
+A short paragraph explaining the key implications of the change and the
 reason for the change. For more critical changes include any
 references to context that may help future readers.
   [  a blank line  ]
-[ optionally, add more issue references ]
+[ optionally, add more project-tracking references ]
 ```
 
 ## One-Liner Format
@@ -244,35 +244,81 @@ Next: Add property validation and update documentation.
 
 ### Go Package Examples
 
-**Simple functional change:**
+**Simple functional change (no body needed):**
 ```
 defrag/sctpdefrag: log progress for debugging
 ```
 
-**Complex functionality with body:**
+**Bug fix with context (explains WHY):**
 ```
-defrag/defragtest: adapt templates for complex (multi-layered) protocols
+x/dbtest: wait for exposed port before proceeding with tests
 
-This change enhances the fragment handling logic by allowing templates
-to return multiple layers, which is essential for protocols requiring
-additional encapsulation.
-
-The documentation has been updated to clarify the behaviour of the
-fragment rendering process and to provide examples of how to implement
-protocol-specific fragmentation.
+This commit waits for Redis and Postgres exposed ports prior testing.
+This should resolve test failures due to "port not found".
 ```
 
-**Documentation-focused Go package:**
+**Architecture decision (provides broader context):**
 ```
-defrag/sctpdefrag: document the package and its fragmentation process
+fingerprint/classification: reify architecture constructs into Go
 
-This long doc contains snippets from the spec and references to the
-official RFC.
+This commit opens the classification package by laying out a type-system
+that mimics the architectural concepts for fingerprinting.
+
+Most of the names and doc comments are taken literally from the
+architecture document. The following commits will expose those
+constructs in a more usable interface.
+
+See <https://docs.onelayer.dev/fingerprint-sad.html> for the detailed
+architecture.
 ```
 
-**Performance optimization:**
+**Technical coordination challenge (explains complex problem):**
 ```
-defrag/sctpdefrag: efficiently decode chunks with BundleContainer
+gopacket: register application-specific layer types without collisions
+
+When application-specific packages, like defragmenting SCTP messages,
+need to register a layer, it is an effort of coordination between all
+the packages in a compiled executable. Unfortunately, this is not always
+possible since not all packages can know about each other in advance.
+
+The new function registers such layer types using the first available
+index. This means that the number identifying the layer may change
+between different users of the same package that registers the layer.
+Users are expected to pay attention to this fine print.
+```
+
+**Production necessity (explains business importance):**
+```
+defrag/sctpdefrag: support multiple associations at the same time
+
+Associations are the foundation for SCTP's communication channels. It is
+about time this package respects that. Without it, there is no
+production scenario for this package.
+```
+
+**Security resolution (provides specific context):**
+```
+exp: resolve vulnerability alerts
+
+Resolves the following security alerts:
+
+Severity: High
+Alert: <https://github.com/OneLayerHQ/atmosphere/security/dependabot/9>
+Module: google.golang.org/grpc
+gRPC-Go HTTP/2 Rapid Reset vulnerability
+
+Severity: Moderate
+Alert: <https://github.com/OneLayerHQ/atmosphere/security/dependabot/13>
+Module: google.golang.org/grpc
+HTTP/2 Stream Cancellation Attack
+```
+
+**Major refactoring effort (shows development complexity):**
+```
+defrag/sctpdefrag: defragment out-of-order chunks
+
+Wow! This was a big step upwards in the capabilities of this package. It
+drove me to refactor the whole internal bookkeeping mechanism.
 ```
 
 ### Documentation Examples
