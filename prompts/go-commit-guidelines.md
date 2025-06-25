@@ -104,32 +104,69 @@ references to context that may help future readers.
 4. **Is it a known target type?** Use specific rules above
 5. **When in doubt:** Use the last two segments of the path
 
-## 4. Verb Selection (Based on Git Diff Patterns)
+## Verb Selection (Based on Git Diff Patterns)
 
-**Core Rule:** Describe HOW the package changes, not WHAT you did as a developer.
+**Core Rule:** Describe HOW the target changes, not WHAT you did as a developer.
 
-**Fill in the blank:** "After this commit, the package now _____"
+**Fill in the blank:** "This change modifies TARGET to _____"
 
-### Diff Pattern → Verb Mapping
+### Universal Verb Mapping
 
-| What you see in diff | Use verb | Package now... |
-|---------------------|----------|----------------|
-| New exported functions/types | **expose** | exposes new capability |
-| New event/message handlers | **handle** | handles new input types |
-| Improved existing logic | **enhance** | enhances existing behavior |
-| Bug fixes in existing code | **fix** | fixes problematic behavior |
-| New metrics/logging | **measure** | measures new data points |
-| Deleted code/features | **remove** | removes old functionality |
+**For new exported symbols in Go packages:**
+Look deeper into the changeset to find the appropriate functional verb:
+1. **Check if there's new functionality** - look for actual implementation, logic, behavior
+2. **If functionality exists** - find the verb that describes what it does:
+   - Read function names (e.g., `HandleEvents` → **handle**)  
+   - Check doc comments for functionality descriptions
+   - Review package-level documentation updates
+   - Examples: **handle**, **measure**, **transform**, **parse**, **validate**
+3. **If no functionality** - just exported declarations (types, vars, interfaces):
+   - Use **expose** when adding new types/interfaces prior to their usage
+   - Use **expose** when making existing unexported symbols public
+
+**For CLI tool-related changes:**
+When changes relate to well-known CLI tools, consider using the actual command as the verb:
+- `go.mod: tidy` (from `go mod tidy`)
+- `go.mod: get example.com` (from `go get example.com`) 
+- `go.mod: upgrade example.com to latest release` (from `go get -u example.com`)
+
+**For other changes:**
+- **enhance** - when you see improved existing logic  
+- **fix** - when you see bug fixes in existing code
+- **remove** - when you see deleted code/features
+- **test** - when you see new tests added
+- **configure** - when you see configuration changes
+- **bump** - when you see dependencies updated (fallback if CLI verb doesn't fit)
+- **update** - when you see content/text changes
+
+### Target-Specific Adaptations
+
+**For Go packages:**
+- Focus on functional changes derived from the functions in the changeset.
+
+**For docs:**
+- Focus on content: `update`, `clarify`, `add`, `remove`, `restructure`
+
+**For github:**
+- Focus on automation: `automate`, `configure`, `update`, `fix`, `enhance`
+- For specific workflows: `build`, `test`, `push` (images), `deploy`
+
+**For go.mod:**
+- Use specific verbs: `tidy`, `get`, `add`, `remove`
 
 ### Good vs Bad Examples
 
 ✅ **Good (describes result):**
-- `activity: expose UE state property` 
-- `gsma: handle ComponentChanged notifications`
+- `visibility/activity: expose UE state property` 
+- `docs: update installation guide`
+- `github: add workflow for testing`
+- `go.mod: bump golang.org/x/sync to v0.14.0`
 
 ❌ **Bad (describes action):**
-- `activity: add UE state property`
-- `gsma: implement ComponentChanged handling`
+- `visibility/activity: add UE state property`
+- `docs: write installation guide`
+- `github: create workflow for testing`
+- `go.mod: update golang.org/x/sync to v0.14.0`
 
 ## Body Content Guidelines
 
