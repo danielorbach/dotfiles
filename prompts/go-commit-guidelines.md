@@ -32,7 +32,7 @@ references to context that may help future readers.
 - Does not start with a capital letter
 - Is not a complete sentence  
 - Actually summarizes the result of the change
-- ≤ 72 characters total
+- Strives to be ≤ 72 characters total (no hard limit)
 
 **Key Principle:** Describe HOW the target changes, not WHAT you did as a developer.
 
@@ -172,19 +172,41 @@ When changes relate to well-known CLI tools, consider using the actual command a
 
 ## Body Content Guidelines
 
-**Purpose:** Provide context for the change - decisions made, testing commands, left-over tasks, and reasoning.
+**When body is needed:**
+- The one-liner alone doesn't provide sufficient context for review or future understanding
+- Think: "Will this be clear when someone runs git blame in 6 months?"
+- The one-liner is read while scrolling through logs; the body is read during review and debugging
 
-**Include:**
-- Key aspects of the change and reason for it
-- Decisions made during implementation
-- Commands used to test/verify the changeset
-- Left-over tasks or follow-up work needed
-- References to context for future readers
+**When body is optional:**
+- Commit is self-explanatory from the one-liner and diff
+- Simple, straightforward changes with obvious motivation
+
+**Format rules:**
+- Use plaintext only - NO Markdown (terminals, Git UIs don't render it)
+- Line length: 72 characters max, break lines as needed
+- Use paragraphs to logically segment content - helps readers focus on distinct points
+- Separate paragraphs with blank lines
+
+**Content to include (contextual information NOT in the diff):**
+- **Motivation:** Why this change was necessary
+- **Decision rationale:** Why one approach over alternatives
+- **Timing context:** What this leads up to, what comes next
+- **Validation:** Tools/commands used to verify the change
+- **Follow-up work:** TODOs, next steps, known limitations
+
+**When uncertain about commit details:**
+Use the body to ASK the developer questions. Format them to clearly demand attention:
+
+```
+QUESTION: Should this validation also apply to legacy devices?
+QUESTION: Is the 30-second timeout sufficient for production workloads?
+TODO: Confirm error handling strategy with @teamlead
+```
 
 **Don't include:**
-- Restating what the diff shows
-- Listing files that were changed
-- Implementation details visible in the code
+- Information visible in the diff itself
+- File listings or implementation details
+- Markdown formatting
 
 **Example:**
 ```
@@ -192,9 +214,11 @@ visibility/activity: expose UE state property
 
 This property will be used by the upcoming mobility tracking feature
 to determine when devices transition between active and inactive states.
+The property design follows the same pattern as existing state tracking
+to maintain consistency across the visibility package.
 
 Tested with: go test ./visibility/activity/...
-Still needed: Add property validation in the next commit.
+Next: Add property validation and update documentation.
 ```
 
 ## Issue References (Optional)
