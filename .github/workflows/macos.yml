@@ -68,7 +68,7 @@ jobs:
           find screenshots -type f -name '*.png' -exec zopflipng -y {} {} \;
 
       - name: Upload user-interface screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: screenshots
           path: screenshots/*
